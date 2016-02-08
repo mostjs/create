@@ -15,7 +15,7 @@ $ sed -i 's/mostPackage/your-package-name-here/g' package.json
 In your editor:
 
 1. Add a description of your awesome package and
-make sure to give yourself create as the 'author' in the package.json
+make sure to give yourself credit as the 'author' in the package.json
 2. Create well-tested awesomeness. :fire::fire:
 3. Tell us about the awesomeness you just created in your README.md
 
