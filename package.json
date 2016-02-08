@@ -1,5 +1,5 @@
 {
-  "name": "@most/mostPackage-starter",
+  "name": "@most/mostPackage",
   "version": "0.0.0",
   "description": "",
   "main": "mostPackage.js",
