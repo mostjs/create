@@ -11,7 +11,7 @@
     "build": "npm run build-dist && uglifyjs dist/mostPackage.js -o dist/mostPackage.min.js",
     "prepublish": "npm run build",
     "preversion": "npm run build",
-    "unit-test": "mocha -r babel-register",
+    "unit-test": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "lint": "jscs -x src && jsinspect src && eslint src",
     "test": "npm run lint && npm run unit-test"
   },
@@ -32,8 +32,8 @@
     "babel-eslint": "^4.1.8",
     "babel-plugin-transform-es2015-modules-umd": "^6.5.0",
     "babel-preset-es2015": "^6.5.0",
-    "babel-register": "^6.5.0",
     "eslint": "^1.10.3",
+    "isparta": "^4.0.0",
     "jscs": "^2.9.0",
     "jsinspect": "^0.7.2",
     "mocha": "^2.4.5",
