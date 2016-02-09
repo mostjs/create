@@ -1,14 +1,13 @@
 {
   "name": "@most/mostPackage",
-  "version": "0.0.0",
-  "description": "",
-  "main": "mostPackage.js",
+  "version": "1.0.0",
+  "description": "mostPackage",
+  "main": "dist/mostPackage.js",
   "files": [
     "dist/mostPackage.js"
   ],
-  "directories": {},
   "scripts": {
-    "build-dist": "mkdir -p dist && rollup src/mostPackage.js | babel --presets es2015 --plugins transform-es2015-modules-umd --module-id '@most/mostPackage' -o dist/mostPackage.js",
+    "build-dist": "mkdir -p dist && rollup src/index.js | babel --presets es2015 --plugins transform-es2015-modules-umd --module-id '@most/mostPackage' -o dist/mostPackage.js",
     "build": "npm run build-dist && uglifyjs dist/mostPackage.js -o dist/mostPackage.min.js",
     "prepublish": "npm run build",
     "preversion": "npm run build",
@@ -20,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/mostjs/mostPackage.git"
   },
-  "author": "Tylor Steinberger <tlsteinberger167@gmail.com> (github.com/TylorS)",
+  "author": "Your Name <you@wherever.com> (github.com/<you>)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mostjs/mostPackage/issues"

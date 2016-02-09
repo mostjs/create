@@ -1,17 +1,22 @@
 # mostjs package-starter
 
+A starting point for new `@most` packages.
+
 ## Usage
 
-At you bash/zsh command line;
-Replacing `your-package-name` with the actual name of your awesome new library.
+### Get it
+
 ```shell
-$ git clone https://github.com/mostjs/package-starter
-$ rm -rf .git
+$ git clone https://github.com/mostjs/package-starter my-awesome-package
+$ cd my-awesome-package
+$ rm -rf ./.git
+$ git init
 $ npm install
-$ mv src/mostPackage.js src/your-package-name.js
-$ mv test/mostPackage.js test/your-package-name.js
-$ sed -i 's/mostPackage/your-package-name-here/g' package.json
+$ sed -i 's/mostPackage/my-awesome-package/g' package.json
 ```
+
+### Use it
+
 In your editor:
 
 1. Add a description of your awesome package and
