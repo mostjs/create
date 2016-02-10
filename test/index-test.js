@@ -3,9 +3,12 @@
 import {describe, it} from 'mocha';
 import assert from 'assert';
 
+import awesome from '../src/index';
+
+// TODO: Write more tests
+
 describe('@most/mostPackage', () => {
   it('should be awesome', () => {
-    // TODO: Write passing tests!
-    assert.equal('is it awesome?', 'not yet', 'Write some code and tests!');
+    assert(awesome(true));
   });
 });
