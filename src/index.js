@@ -2,4 +2,4 @@
 
 // import {...} from 'most';
 
-export default x => x;
+export default x => x
