@@ -1,14 +1,14 @@
 {
-  "name": "@most/mostPackage",
+  "name": "@most/create",
   "version": "1.0.0",
-  "description": "mostPackage",
-  "main": "dist/mostPackage.js",
+  "description": "create",
+  "main": "dist/create.js",
   "files": [
-    "dist/mostPackage.js"
+    "dist/create.js"
   ],
   "scripts": {
-    "build-dist": "mkdir -p dist && rollup src/index.js | babel --presets es2015 --plugins transform-es2015-modules-umd --module-id '@most/mostPackage' -o dist/mostPackage.js",
-    "build": "npm run build-dist && uglifyjs dist/mostPackage.js -o dist/mostPackage.min.js",
+    "build-dist": "mkdir -p dist && rollup src/index.js | babel --presets es2015 --plugins transform-es2015-modules-umd --module-id '@most/create' -o dist/create.js",
+    "build": "npm run build-dist && uglifyjs dist/create.js -o dist/create.min.js",
     "prepublish": "npm run build",
     "preversion": "npm run build",
     "unit-test": "babel-node ./node_modules/.bin/isparta cover _mocha",
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mostjs/mostPackage.git"
+    "url": "git+https://github.com/mostjs/create.git"
   },
-  "author": "Your Name <you@wherever.com> (github.com/<you>)",
+  "author": "Brian Cavalier <brian@hovercraftstudios.com> (github.com/briancavalier)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mostjs/mostPackage/issues"
+    "url": "https://github.com/mostjs/create/issues"
   },
-  "homepage": "https://github.com/mostjs/mostPackage#readme",
+  "homepage": "https://github.com/mostjs/create#readme",
   "devDependencies": {
     "@most/eslint-config-most": "^1.0.2",
     "assert": "^1.4.0",
@@ -42,9 +42,13 @@
     "mocha": "^2.5.3",
     "most": "^0.19.3",
     "rollup": "^0.26.3",
+    "sinon": "^1.17.4",
     "uglify-js": "^2.6.1"
   },
   "peerDependencies": {
     "most": "^0.19.6"
+  },
+  "dependencies": {
+    "@most/multicast": "^1.1.4"
   }
 }
