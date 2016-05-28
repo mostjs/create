@@ -10,11 +10,9 @@ npm install --save @most/create
 
 ## API
 
-###`create :: Publisher a b e -> Stream`
+#### create :: Publisher a b e &rarr; Stream
 
-```
-Publisher :: (a -> void) -> (b -> void) -> (Error e -> void) -> (void -> void)
-```
+Publisher :: ((a &rarr; void) &rarr; (b &rarr; void) &rarr; (Error e &rarr; void)) &rarr; (void &rarr; void)
 
 Create a push-stream for imperatively pushing events, primarily for situations where declarative sources can't be used.
 
