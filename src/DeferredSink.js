@@ -25,6 +25,10 @@ export default class DeferredSink {
   }
 
   error (t, e) {
+    if (!this.active) {
+      return
+    }
+
     this._end(new ErrorTask(t, e, this.sink))
   }
 

@@ -4,7 +4,7 @@ import { spy } from 'sinon'
 
 import create from '../src/index'
 
-import { observe } from 'most'
+import { observe, take } from 'most'
 
 describe('create', () => {
   it('should return a compatible stream', () => {
@@ -54,24 +54,19 @@ describe('create', () => {
       })
   })
 
-  // it('should prevent events after dispose', function() {
-  //   var env = te.newEnv()
-  //
-  //   var endlessStream = create(function(add) {
-  //     add(1)
-  //     env.scheduler.delay(2, {
-  //       run: function() { add(2); }
-  //     })
-  //   })
-  //
-  //   var s = until(delay(1, streamOf()), endlessStream)
-  //
-  //   return te.collectEvents(s, env.tick(2)).then(function(events) {
-  //     expect(events.length).toBe(1)
-  //     expect(events[0].value).toBe(1)
-  //   })
-  // })
-  //
+  it('should prevent events after dispose', () => {
+    const s = create(add => {
+      add(1)
+      add(2)
+    })
+
+    take(1, s).reduce((a, x) => a.concat(x), [])
+      .then(events => {
+        assert.strictEqual(events.length, 1)
+        assert.strictEqual(events[0].value, 1)
+      })
+  })
+
   it('should propagate error thrown synchronously from publisher', () => {
     const error = new Error()
     const s1 = create(() => {
