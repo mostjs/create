@@ -20,5 +20,5 @@ declare interface DisposeFn {
 }
 
 export default function create<A>(f: (add: (a: A) => any,
-                                      end: (x: any) => any,
+                                      end: (x?: any) => any,
                                       error: (e: Error) => any) => void | DisposeFn ): Stream<A>;
