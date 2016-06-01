@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "create",
   "main": "dist/create.js",
+  "typings": "type-definitions/index.d.ts",
   "files": [
-    "dist/create.js"
+    "dist/create.js",
+    "type-definitions/index.d.ts"
   ],
   "scripts": {
     "build-dist": "mkdir -p dist && rollup src/index.js | babel --presets es2015 --plugins transform-es2015-modules-umd --module-id '@most/create' -o dist/create.js",
