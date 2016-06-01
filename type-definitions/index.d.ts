@@ -19,6 +19,6 @@ declare interface DisposeFn {
   (): void | Promise<any>;
 }
 
-export default function create<A>(f: (add: (a: A) => any,
-                                      end: (x?: any) => any,
-                                      error: (e: Error) => any) => void | DisposeFn ): Stream<A>;
+export default function create<A>(f: (add: (a: A) => void,
+                                      end: (x?: A) => void,
+                                      error: (e: Error) => void) => void | DisposeFn ): Stream<A>;
