@@ -162,6 +162,10 @@
     }, {
       key: 'error',
       value: function error(t, e) {
+        if (!this.active) {
+          return;
+        }
+
         this._end(new ErrorTask(t, e, this.sink));
       }
     }, {
@@ -180,31 +184,12 @@
     return DeferredSink;
   }();
 
-  /** @license MIT License (c) copyright 2010-2016 original author or authors */
-
-  function tryEvent(t, x, sink) {
-    try {
-      sink.event(t, x);
-    } catch (e) {
-      sink.error(t, e);
-    }
-  }
-
-  function tryEnd(t, x, sink) {
-    try {
-      sink.end(t, x);
-    } catch (e) {
-      sink.error(t, e);
-    }
-  }
-
   var CreateSubscriber = function () {
     function CreateSubscriber(sink, scheduler, subscribe) {
       _classCallCheck(this, CreateSubscriber);
 
       this.sink = sink;
       this.scheduler = scheduler;
-      this.active = true;
       this._unsubscribe = this._init(subscribe);
     }
 
@@ -214,13 +199,13 @@
         var _this = this;
 
         var add = function add(x) {
-          return _this._add(x);
+          return _this.sink.event(_this.scheduler.now(), x);
         };
         var end = function end(x) {
-          return _this._end(x);
+          return _this.sink.end(_this.scheduler.now(), x);
         };
         var error = function error(e) {
-          return _this._error(e);
+          return _this.sink.error(_this.scheduler.now(), e);
         };
 
         try {
@@ -230,32 +215,8 @@
         }
       }
     }, {
-      key: '_add',
-      value: function _add(x) {
-        if (!this.active) {
-          return;
-        }
-        tryEvent(this.scheduler.now(), x, this.sink);
-      }
-    }, {
-      key: '_end',
-      value: function _end(x) {
-        if (!this.active) {
-          return;
-        }
-        this.active = false;
-        tryEnd(this.scheduler.now(), x, this.sink);
-      }
-    }, {
-      key: '_error',
-      value: function _error(x) {
-        this.active = false;
-        this.sink.error(this.scheduler.now(), x);
-      }
-    }, {
       key: 'dispose',
       value: function dispose() {
-        this.active = false;
         if (typeof this._unsubscribe === 'function') {
           return this._unsubscribe.call(void 0);
         }
