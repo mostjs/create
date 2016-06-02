@@ -58,10 +58,11 @@
   /** @license MIT License (c) copyright 2010-2016 original author or authors */
 
   var PropagateAllTask = function () {
-    function PropagateAllTask(sink, events) {
+    function PropagateAllTask(sink, time, events) {
       _classCallCheck(this, PropagateAllTask);
 
       this.sink = sink;
+      this.time = time;
       this.events = events;
     }
 
@@ -74,6 +75,7 @@
 
         for (var i = 0, l = events.length; i < l; ++i) {
           event = events[i];
+          this.time = event.time;
           sink.event(event.time, event.value);
         }
 
@@ -82,7 +84,7 @@
     }, {
       key: 'error',
       value: function error(e) {
-        this.sink.error(0, e);
+        this.sink.error(this.time, e);
       }
     }]);
 
@@ -154,24 +156,24 @@
         }
 
         if (this.events.length === 0) {
-          defer(new PropagateAllTask(this.sink, this.events));
+          defer(new PropagateAllTask(this.sink, t, this.events));
         }
 
         this.events.push({ time: t, value: x });
       }
     }, {
-      key: 'error',
-      value: function error(t, e) {
+      key: 'end',
+      value: function end(t, x) {
         if (!this.active) {
           return;
         }
 
-        this._end(new ErrorTask(t, e, this.sink));
+        this._end(new EndTask(t, x, this.sink));
       }
     }, {
-      key: 'end',
-      value: function end(t, x) {
-        this._end(new EndTask(t, x, this.sink));
+      key: 'error',
+      value: function error(t, e) {
+        this._end(new ErrorTask(t, e, this.sink));
       }
     }, {
       key: '_end',
