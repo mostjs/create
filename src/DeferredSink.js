@@ -18,22 +18,22 @@ export default class DeferredSink {
     }
 
     if (this.events.length === 0) {
-      defer(new PropagateAllTask(this.sink, this.events))
+      defer(new PropagateAllTask(this.sink, t, this.events))
     }
 
     this.events.push({ time: t, value: x })
   }
 
-  error (t, e) {
+  end (t, x) {
     if (!this.active) {
       return
     }
 
-    this._end(new ErrorTask(t, e, this.sink))
+    this._end(new EndTask(t, x, this.sink))
   }
 
-  end (t, x) {
-    this._end(new EndTask(t, x, this.sink))
+  error (t, e) {
+    this._end(new ErrorTask(t, e, this.sink))
   }
 
   _end (task) {
