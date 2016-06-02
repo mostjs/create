@@ -5,7 +5,7 @@ Imperatively push events into a Stream.
 ## Install
 
 ```
-npm install --save @most/create
+npm install --save most @most/create
 ```
 
 ## API
