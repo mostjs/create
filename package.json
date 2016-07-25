@@ -42,13 +42,13 @@
     "isparta": "^4.0.0",
     "jsinspect": "^0.8.0",
     "mocha": "^2.5.3",
-    "most": "^0.19.7",
+    "most": "^1.0.0",
     "rollup": "^0.26.3",
     "sinon": "^1.17.4",
     "uglify-js": "^2.6.1"
   },
   "peerDependencies": {
-    "most": "^0.19.0"
+    "most": "^1.0.0"
   },
   "dependencies": {
     "@most/multicast": "^1.1.4"
