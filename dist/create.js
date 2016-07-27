@@ -1,29 +1,30 @@
 (function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define('@most/create', ['exports', 'most', '@most/multicast'], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require('most'), require('@most/multicast'));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.most, global.multicast);
-    global.mostCreate = mod.exports;
-  }
-})(this, function (exports, _most, _multicast) {
-  'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('most'), require('@most/multicast')) :
+  typeof define === 'function' && define.amd ? define(['most', '@most/multicast'], factory) :
+  (global.mostCreate = factory(global.most,global.mostMulticast));
+}(this, function (most,_most_multicast) { 'use strict';
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
+  /** @license MIT License (c) copyright 2010-2016 original author or authors */
+
+  var defer = (function (task) {
+    return Promise.resolve(task).then(runTask);
   });
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
+  function runTask(task) {
+    try {
+      return task.run();
+    } catch (e) {
+      return task.error(e);
     }
   }
 
-  var _createClass = function () {
+  var classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  };
+
+  var createClass = function () {
     function defineProperties(target, props) {
       for (var i = 0; i < props.length; i++) {
         var descriptor = props[i];
@@ -43,31 +44,17 @@
 
   /** @license MIT License (c) copyright 2010-2016 original author or authors */
 
-  var defer = function defer(task) {
-    return Promise.resolve(task).then(runTask);
-  };
-
-  function runTask(task) {
-    try {
-      return task.run();
-    } catch (e) {
-      return task.error(e);
-    }
-  }
-
-  /** @license MIT License (c) copyright 2010-2016 original author or authors */
-
   var PropagateAllTask = function () {
     function PropagateAllTask(sink, time, events) {
-      _classCallCheck(this, PropagateAllTask);
+      classCallCheck(this, PropagateAllTask);
 
       this.sink = sink;
       this.time = time;
       this.events = events;
     }
 
-    _createClass(PropagateAllTask, [{
-      key: 'run',
+    createClass(PropagateAllTask, [{
+      key: "run",
       value: function run() {
         var events = this.events;
         var sink = this.sink;
@@ -82,73 +69,74 @@
         events.length = 0;
       }
     }, {
-      key: 'error',
+      key: "error",
       value: function error(e) {
         this.sink.error(this.time, e);
       }
     }]);
-
     return PropagateAllTask;
   }();
 
+  /** @license MIT License (c) copyright 2010-2016 original author or authors */
+
   var EndTask = function () {
     function EndTask(t, x, sink) {
-      _classCallCheck(this, EndTask);
+      classCallCheck(this, EndTask);
 
       this.time = t;
       this.value = x;
       this.sink = sink;
     }
 
-    _createClass(EndTask, [{
-      key: 'run',
+    createClass(EndTask, [{
+      key: "run",
       value: function run() {
         this.sink.end(this.time, this.value);
       }
     }, {
-      key: 'error',
+      key: "error",
       value: function error(e) {
         this.sink.error(this.time, e);
       }
     }]);
-
     return EndTask;
   }();
 
+  /** @license MIT License (c) copyright 2010-2016 original author or authors */
+
   var ErrorTask = function () {
     function ErrorTask(t, e, sink) {
-      _classCallCheck(this, ErrorTask);
+      classCallCheck(this, ErrorTask);
 
       this.time = t;
       this.value = e;
       this.sink = sink;
     }
 
-    _createClass(ErrorTask, [{
-      key: 'run',
+    createClass(ErrorTask, [{
+      key: "run",
       value: function run() {
         this.sink.error(this.time, this.value);
       }
     }, {
-      key: 'error',
+      key: "error",
       value: function error(e) {
         throw e;
       }
     }]);
-
     return ErrorTask;
   }();
 
   var DeferredSink = function () {
     function DeferredSink(sink) {
-      _classCallCheck(this, DeferredSink);
+      classCallCheck(this, DeferredSink);
 
       this.sink = sink;
       this.events = [];
       this.active = true;
     }
 
-    _createClass(DeferredSink, [{
+    createClass(DeferredSink, [{
       key: 'event',
       value: function event(t, x) {
         if (!this.active) {
@@ -182,20 +170,21 @@
         defer(task);
       }
     }]);
-
     return DeferredSink;
   }();
 
+  /** @license MIT License (c) copyright 2010-2016 original author or authors */
+
   var CreateSubscriber = function () {
     function CreateSubscriber(sink, scheduler, subscribe) {
-      _classCallCheck(this, CreateSubscriber);
+      classCallCheck(this, CreateSubscriber);
 
       this.sink = sink;
       this.scheduler = scheduler;
       this._unsubscribe = this._init(subscribe);
     }
 
-    _createClass(CreateSubscriber, [{
+    createClass(CreateSubscriber, [{
       key: '_init',
       value: function _init(subscribe) {
         var _this = this;
@@ -224,30 +213,29 @@
         }
       }
     }]);
-
     return CreateSubscriber;
   }();
 
   var Create = function () {
     function Create(subscribe) {
-      _classCallCheck(this, Create);
+      classCallCheck(this, Create);
 
       this._subscribe = subscribe;
     }
 
-    _createClass(Create, [{
+    createClass(Create, [{
       key: 'run',
       value: function run(sink, scheduler) {
         return new CreateSubscriber(new DeferredSink(sink), scheduler, this._subscribe);
       }
     }]);
-
     return Create;
   }();
 
-  var index = function index(run) {
-    return new _most.Stream(new _multicast.MulticastSource(new Create(run)));
-  };
+  var index = (function (run) {
+    return new most.Stream(new _most_multicast.MulticastSource(new Create(run)));
+  });
 
-  exports.default = index;
-});
+  return index;
+
+}));
