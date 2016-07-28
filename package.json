@@ -9,7 +9,7 @@
     "type-definitions/index.d.ts"
   ],
   "scripts": {
-    "build-dist": "mkdir dist && rollup -c",
+    "build-dist": "mkdir -p dist && rollup -c",
     "build": "npm run build-dist && uglifyjs dist/create.js -o dist/create.min.js",
     "prepublish": "npm run build",
     "preversion": "npm run build",
