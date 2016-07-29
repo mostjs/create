@@ -1,6 +1,6 @@
 {
   "name": "@most/create",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "create",
   "main": "dist/create.js",
   "typings": "type-definitions/index.d.ts",
