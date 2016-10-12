@@ -7,7 +7,7 @@
   "jsnext:main": "dist/create.es.js",
   "typings": "type-definitions/index.d.ts",
   "files": [
-    "dist/create.js",
+    "dist",
     "type-definitions/index.d.ts"
   ],
   "scripts": {
