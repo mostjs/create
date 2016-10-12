@@ -73,6 +73,8 @@ ErrorTask.prototype.error = function error (e) {
   throw e
 };
 
+/** @license MIT License (c) copyright 2010-2016 original author or authors */
+
 var DeferredSink = function DeferredSink (sink) {
   this.sink = sink
   this.events = []
@@ -136,6 +138,8 @@ CreateSubscriber.prototype.dispose = function dispose () {
   }
 };
 
+/** @license MIT License (c) copyright 2010-2016 original author or authors */
+
 var Create = function Create (subscribe) {
   this._subscribe = subscribe
 };
@@ -144,6 +148,10 @@ Create.prototype.run = function run (sink, scheduler) {
   return new CreateSubscriber(new DeferredSink(sink), scheduler, this._subscribe)
 };
 
-function index (run) { return new Stream(new MulticastSource(new Create(run))); }
+/** @license MIT License (c) copyright 2016 original author or authors */
 
-export default index;
+function create (run) {
+  return new Stream(new MulticastSource(new Create(run)))
+}
+
+export { create };
