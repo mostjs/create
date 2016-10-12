@@ -2,7 +2,7 @@ import { describe, it } from 'mocha'
 import assert from 'assert'
 import { spy } from 'sinon'
 
-import create from '../src/index'
+import { create } from '../src/index'
 
 import { observe, take } from 'most'
 
