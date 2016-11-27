@@ -61,7 +61,7 @@ Note that if the stream neither ends nor fails, the dispose function will never 
 Using `add` and `end` to push events and then end the stream.
 
 ```js
-import create from '@most/create'
+import {create} from '@most/create'
 
 // Add events and then end
 const stream = create((add, end, error) => {
@@ -88,7 +88,7 @@ stream.forEach(x => console.log(x));
 Using `error` to fail the stream and propagate an Error:
 
 ```js
-import create from '@most/create'
+import {create} from '@most/create'
 
 // Add events and then fail
 const stream = create((add, end, error) => {
