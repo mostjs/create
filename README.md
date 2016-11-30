@@ -8,6 +8,55 @@ Imperatively push events into a Stream.
 npm install --save most @most/create
 ```
 
+## Examples
+
+Using `add` and `end` to push events and then end the stream.
+
+```js
+import {create} from '@most/create'
+
+// Add events and then end
+const stream = create((add, end, error) => {
+	setTimeout(add, 1000, 'event 1')
+	setTimeout(add, 3000, 'event 2')
+	setTimeout(() => {
+		add('event 3')
+		end()
+	}, 10000)
+
+	// OPTIONAL: Return a dispose function to clean up
+	// resources when the stream ends
+	return () => console.log('dispose')
+})
+
+// Logs
+// 'event 1' after 1 second
+// 'event 2' after 3 seconds
+// 'event 3' after 10 seconds
+// 'dispose' after 10 seconds
+stream.forEach(x => console.log(x));
+```
+
+Using `error` to fail the stream and propagate an Error:
+
+```js
+import {create} from '@most/create'
+
+// Add events and then fail
+const stream = create((add, end, error) => {
+	setTimeout(add, 1000, 'event 1');
+	setTimeout(() => error(new Error('oops!')), 3000)
+});
+
+// Logs
+// 'event 1' after 1 second
+// '[Error: oops!]' after 3 seconds
+stream
+	.forEach(x => console.log(x))
+	.catch(e => console.error(e)); // Catch the error as a promise
+```
+
+
 ## API
 
 #### create :: (Error e) &rArr; Publisher a b e &rarr; Stream
@@ -56,50 +105,3 @@ If the publisher returns a dispose function, it will be called when the stream e
 
 Note that if the stream neither ends nor fails, the dispose function will never be called.
 
-#### Examples
-
-Using `add` and `end` to push events and then end the stream.
-
-```js
-import {create} from '@most/create'
-
-// Add events and then end
-const stream = create((add, end, error) => {
-	setTimeout(add, 1000, 'event 1')
-	setTimeout(add, 3000, 'event 2')
-	setTimeout(() => {
-		add('event 3')
-		end()
-	}, 10000)
-
-	// OPTIONAL: Return a dispose function to clean up
-	// resources when the stream ends
-	return () => console.log('dispose')
-})
-
-// Logs
-// 'event 1' after 1 second
-// 'event 2' after 3 seconds
-// 'event 3' after 10 seconds
-// 'dispose' after 10 seconds
-stream.forEach(x => console.log(x));
-```
-
-Using `error` to fail the stream and propagate an Error:
-
-```js
-import {create} from '@most/create'
-
-// Add events and then fail
-const stream = create((add, end, error) => {
-	setTimeout(add, 1000, 'event 1');
-	setTimeout(() => error(new Error('oops!')), 3000)
-});
-
-// Logs
-// 'event 1' after 1 second
-// '[Error: oops!]' after 3 seconds
-stream
-	.forEach(x => console.log(x))
-	.catch(e => console.error(e)); // Catch the error as a promise
-```
