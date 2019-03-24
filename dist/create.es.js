@@ -121,9 +121,9 @@ var CreateSubscriber = function CreateSubscriber (sink, scheduler, subscribe) {
 CreateSubscriber.prototype._init = function _init (subscribe) {
     var this$1 = this;
 
-  var add = function (x) { return this$1.sink.event(this$1.scheduler.now(), x); }
-  var end = function (x) { return this$1.sink.end(this$1.scheduler.now(), x); }
-  var error = function (e) { return this$1.sink.error(this$1.scheduler.now(), e); }
+  var add = function (x) { return this$1.sink.event(this$1.scheduler.currentTime(), x); }
+  var end = function (x) { return this$1.sink.end(this$1.scheduler.currentTime(), x); }
+  var error = function (e) { return this$1.sink.error(this$1.scheduler.currentTime(), e); }
 
   try {
     return subscribe(add, end, error)

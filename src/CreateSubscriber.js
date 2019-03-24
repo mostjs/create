@@ -8,9 +8,9 @@ export default class CreateSubscriber {
   }
 
   _init (subscribe) {
-    const add = x => this.sink.event(this.scheduler.now(), x)
-    const end = x => this.sink.end(this.scheduler.now(), x)
-    const error = e => this.sink.error(this.scheduler.now(), e)
+    const add = x => this.sink.event(this.scheduler.currentTime(), x)
+    const end = x => this.sink.end(this.scheduler.currentTime(), x)
+    const error = e => this.sink.error(this.scheduler.currentTime(), e)
 
     try {
       return subscribe(add, end, error)
