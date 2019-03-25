@@ -2,6 +2,8 @@
 
 Imperatively push events into a Stream.
 
+Note: `@most/create` is compatible `most` 1.x.  It is not compatible with `@most/core`.  In `@most/core`, simply [implement the Stream interface](https://mostcore.readthedocs.io/en/latest/api.html#stream), or use [@most/adapter](https://github.com/mostjs/adapter).
+
 ## Install
 
 ```
@@ -104,4 +106,3 @@ If the publisher returns a dispose function, it will be called when the stream e
 * `dispose` - free resources held by the publisher
 
 Note that if the stream neither ends nor fails, the dispose function will never be called.
-
