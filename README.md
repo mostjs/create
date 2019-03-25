@@ -2,7 +2,7 @@
 
 Imperatively push events into a Stream.
 
-Note: @most/create is compatible `most` 1.x.  It is not compatible with `@most/core`.  In `@most/core`, simply [implement the Stream interface](https://mostcore.readthedocs.io/en/latest/api.html#stream), or use [@most/adapter](https://github.com/mostjs/adapter).
+Note: `@most/create` is compatible `most` 1.x.  It is not compatible with `@most/core`.  In `@most/core`, simply [implement the Stream interface](https://mostcore.readthedocs.io/en/latest/api.html#stream), or use [@most/adapter](https://github.com/mostjs/adapter).
 
 ## Install
 
